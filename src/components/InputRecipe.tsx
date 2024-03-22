@@ -8,21 +8,30 @@ type recipeType = {
 };
 
 type InputProps = {
-    recipe: recipeType[];
     addRecipe: (recipe: recipeType) => void;
 };
 
-const InputRecipe: React.FC<InputProps> = ({ recipe, addRecipe }) => {
+const InputRecipe: React.FC<InputProps> = ({ addRecipe }) => {
     const [recipe_name, setRecipeName] = useState<string>("");
     const [recipe_detail, setRecipeDetail] = useState<string>("");
-    console.log("recipeall :", recipe);
+    const [btnClick, setBtnClick] = useState<boolean>(true);
+
+    const checkClickable = () => {
+        if (recipe_name != "" && recipe_detail != "") {
+            setBtnClick(false);
+        } else {
+            setBtnClick(true);
+        }
+    };
 
     const setReicpeName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRecipeName(e.target.value);
+        checkClickable();
     };
 
     const setReicpeDetail = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setRecipeDetail(e.target.value);
+        checkClickable();
     };
 
     const addNewRecipe = () => {
@@ -32,10 +41,7 @@ const InputRecipe: React.FC<InputProps> = ({ recipe, addRecipe }) => {
             detail: recipe_detail,
         };
 
-        console.log("追加: ", newRecipe);
-
         addRecipe(newRecipe);
-
         setRecipeName("");
         setRecipeDetail("");
     };
@@ -79,19 +85,12 @@ const InputRecipe: React.FC<InputProps> = ({ recipe, addRecipe }) => {
                         type="button"
                         className="text-white bg-blue-400 hover:bg-blue-600 focus:outline-none
                 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 text-center me-2 "
+                        disabled={btnClick}
                         onClick={addNewRecipe}
                     >
                         レシピ追加
                     </button>
                 </div>
-                {/* {recipes.map((recipe) => {
-                    return (
-                        <>
-                            <p>{recipe.name}</p>
-                            <p>{recipe.detail}</p>
-                        </>
-                    );
-                })} */}
             </div>
         </>
     );

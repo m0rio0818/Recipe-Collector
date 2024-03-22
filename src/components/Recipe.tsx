@@ -19,8 +19,8 @@ const Recipe: React.FC = () => {
 
     return (
         <div className=" flex flex-col justify-center">
-            <InputRecipe recipe={recipeLists} addRecipe={addRecipe} />
-            <ShowRecipe recipe={recipeLists} />
+            <InputRecipe addRecipe={addRecipe} />
+            <ShowRecipe recipes={recipeLists} />
         </div>
     );
 };

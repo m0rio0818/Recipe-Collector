@@ -1,3 +1,5 @@
+import AccordionItem from "./AccordionItem";
+
 type recipe = {
     id: number;
     name: string;
@@ -5,20 +7,21 @@ type recipe = {
 };
 
 type showProps = {
-    recipe: recipe[];
+    recipes: recipe[];
 };
 
-const ShowRecipe: React.FC<showProps> = (props) => {
+const ShowRecipe: React.FC<showProps> = ({ recipes }) => {
     return (
         <>
-            {props.recipe.map((data) => {
-                console.log(data);
-                return (
-                    <>
-                        <p>{data.name}</p>
-                    </>
-                );
-            })}
+            <div className="w-full   max-w-2x">
+                {recipes.map((recipe) => (
+                    <AccordionItem
+                        key={recipe.id}
+                        title={recipe.name}
+                        content={recipe.detail}
+                    />
+                ))}
+            </div>
         </>
     );
 };
